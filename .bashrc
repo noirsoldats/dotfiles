@@ -10,6 +10,10 @@ if [ -f ~/.bash_config ]; then
   . ~/.bash_config
 fi
 
+function update_git_branch {
+    PS1="\[$green\]\u@:\w\[$magenta\]$(setGitPrompt)\[$green\]\\$\[$normal_colours\] "
+}
+
 # history
 PROMPT_COMMAND='history -a; history -n'
 HISTCONTROL=ignoredups:ignorespace
@@ -66,6 +70,7 @@ magenta=$'\e[1;35m'
 normal_colours=$'\e[m'
 
 if [ "$color_prompt" = yes ]; then
+    PROMPT_COMMAND="update_git_branch; $PROMPT_COMMAND"
     PS1="\[$green\]\u@:\w\[$magenta\]$(setGitPrompt)\[$green\]\\$\[$normal_colours\] "
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
