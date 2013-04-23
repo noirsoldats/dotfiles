@@ -9,12 +9,21 @@ echo -n "Email: "; read EMAIL
 echo -n "The following are optional, press enter to skip.\n";
 echo -n "Alias SH User Number: "; read ALIAS_SH_USER_ID
 echo -n "Alias SH Private Key: "; read ALIAS_SH_PRIVATE_KEY
+echo "Select Custom Git Prompt (basic, informative): "; read GIT_PROMPT
 
 # Write configs
 echo "export FULLNAME=$FULLNAME" > ~/.bash_config
 echo "export EMAIL=$EMAIL" >> ~/.bash_config
 echo "export ALIAS_SH_USER_ID=$ALIAS_SH_USER_ID" >> ~/.bash_config
 echo "export ALIAS_SH_PRIVATE_KEY=$ALIAS_SH_PRIVATE_KEY" >> ~/.bash_config
+echo "" >> ~/.bash_config
+if ["$GIT_PROMPT" = "basic"] || ["$GIT_PROMPT" = "informative"]; then
+    # Custom for Git Prompts
+    echo "export __GIT_PROMPT_DIR=~/.bash/$GIT_PROMPT-git-prompt" >> ~/.bash_config
+    echo "source ~/.bash/$GIT_PROMPT-git-prompt/gitprompt.sh" >> ~/.bash_config
+else
+    echo "Invalid Git Prompt, skipping."
+fi
 
 # Start with the simple dotfiles
 dotfiles=( .bashrc .bash_aliases .hgrc .vim .vimrc )

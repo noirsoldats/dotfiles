@@ -10,26 +10,6 @@ if [ -f ~/.bash_config ]; then
   . ~/.bash_config
 fi
 
-
-function find_git_branch {
-    local dir=. head
-    until [ "$dir" -ef / ]; do
-        if [ -f "$dir/.git/HEAD" ]; then
-            head=$(< "$dir/.git/HEAD")
-            if [[ $head == ref:\ refs/heads/* ]]; then
-                git_branch=" [${head#*/*/}]"
-            elif [[ $head != '' ]]; then
-                git_branch=' [(detached)]'
-            else
-                git_branch=' [(unknown)]'
-            fi
-            return
-        fi
-        dir="../$dir"
-    done
-    git_branch=''
-}
-
 # history
 PROMPT_COMMAND='history -a; history -n'
 HISTCONTROL=ignoredups:ignorespace
@@ -81,14 +61,12 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
-PROMPT_COMMAND="find_git_branch; $PROMPT_COMMAND"
 green=$'\e[1;32m'
 magenta=$'\e[1;35m'
 normal_colours=$'\e[m'
 
 if [ "$color_prompt" = yes ]; then
-    #PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-    PS1="\[$green\]\u@:\w\[$magenta\]\$git_branch\[$green\]\\$\[$normal_colours\] "
+    PS1="\[$green\]\u@:\w\[$magenta\]$(setGitPrompt)\[$green\]\\$\[$normal_colours\] "
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
