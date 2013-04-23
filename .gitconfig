@@ -1,17 +1,23 @@
 [user]
-    name = Bill Israel
-    email = bill.israel@gmail.com
+    name = __FULLNAME__
+    email = __EMAIL__
 
 [color]
     diff = auto
 
 [alias]
+    mylog = log --pretty='%C(yellow)%h %Cgreen%cn %C(magenta)%cD %Creset%s' --author=__FULLNAME__
     co = checkout
+    br = branch
+    ci = commit
+    st = status
+    revert = checkout --
+    unstage = reset HEAD --
+    changes = log --branches --not --remotes --simplify-by-decoration --decorate --oneline
     df = diff
     ds = diff --staged
     graph = log --graph --pretty=format':%C(yellow)%h%Cblue%d%Creset %s %C(white) %an, %ar%Creset'
     ls = log --pretty=format:'%C(yellow)%h %C(blue)%ad%C(red)%d %C(reset)%s%C(green) [%cn]' --decorate --date=short
-    st = status -sb
     undo = reset --soft HEAD^
 
 [apply]
@@ -26,3 +32,5 @@
 [branch]
 	autosetuprebase = always
 
+[diff]
+    algorithm = patience

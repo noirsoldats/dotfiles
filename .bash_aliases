@@ -1,11 +1,19 @@
 # .bash_aliases
-# Bill Israel [http://cubicle17.com/]
+# Dustin Pate
+
+if [ ! -z $ALIAS_SH_PRIVATE_KEY ]; then
+    source <(curl -s https://alias.sh/user/$ALIAS_SH_USER_ID/alias/key/$ALIAS_SH_PRIVATE_KEY)
+else
+    if [ ! -z $ALIAS_SH_USER_ID ]; then
+        source <(curl -s https://alias.sh/user/$ALIAS_SH_USER_ID/alias)
+    fi
+fi
 
 # ls
 alias ls="ls -G"
-alias l="ls -Ahl"
-alias ll="ls -hl"
-alias la="l"
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
 alias ltr="ls -hltr"
 alias tree="tree --charset=NULL"
 
@@ -16,13 +24,12 @@ alias gsu="git submodule update --init --recursive"
 alias gc="git commit"
 
 # etc
-alias src="cd ~/src"
-alias m="mvim --remote-tab-silent"
+#alias src="cd ~/src"
+#alias m="mvim --remote-tab-silent"
 alias cdns="sudo dscacheutil -flushcache"
 alias diff="diff --suppress-common-lines"
 alias reload="source ~/.bashrc"
 alias t="tree"
-alias fixopenwith="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user;killall Finder"
 alias utime="date +%s"
 
 # `.. 3` will `cd ../../..`
@@ -32,6 +39,7 @@ function ..() {
     done
     cd $dir >& /dev/null;
 }
+
 
 # generate a random password
 function gpw() {

@@ -1,5 +1,5 @@
 " .vimrc
-" Bill Israel [http://cubicle17.com/]
+" Dustin Pate
 
 " Pathogen
 silent! call pathogen#infect()

@@ -3,8 +3,21 @@
 # Install the git submodule so I have my vim plugins
 git submodule update --init --recursive
 
+# Ask for basic variable information
+echo -n "Full Name: "; read FULLNAME
+echo -n "Email: "; read EMAIL
+echo -n "The following are optional, press enter to skip.\n";
+echo -n "Alias SH User Number: "; read ALIAS_SH_USER_ID
+echo -n "Alias SH Private Key: "; read ALIAS_SH_PRIVATE_KEY
+
+# Write configs
+echo "export FULLNAME=$FULLNAME" > ~/.bash_config
+echo "export EMAIL=$EMAIL" >> ~/.bash_config
+echo "export ALIAS_SH_USER_ID=$ALIAS_SH_USER_ID" >> ~/.bash_config
+echo "export ALIAS_SH_PRIVATE_KEY=$ALIAS_SH_PRIVATE_KEY" >> ~/.bash_config
+
 # Start with the simple dotfiles
-dotfiles=( .bashrc .bash_aliases .hgrc .vim/ .vimrc .gitconfig )
+dotfiles=( .bashrc .bash_aliases .hgrc .vim .vimrc )
 for i in "${dotfiles[@]}"
 do
     if [ ! -e ~/$i ]; then 
@@ -12,6 +25,27 @@ do
         ln -s $(pwd)/$i ~/$i
     fi
 done
+
+# Handle .gitconfig specially.
+sed -e "s/__FULLNAME__/$FULLNAME/" -e "s/__EMAIL__/$EMAIL/" $(pwd)/.gitconfig > ~/.gitconfig
+
+uname=$(uname)
+if [ "$TERM" != "dumb" ]; then
+    case "$uname" in
+        Darwin)
+        if [ ! -e $(pwd)/.bashrc.local.mac ]; then
+            echo "Linking $(pwd)/.bashrc.local.mac -> ~/.bashrc.local"
+            ln -s $(pwd)/.bashrc.local.mac ~/.bashrc.local
+        fi
+        ;;
+        *)
+        if [ ! -e $(pwd)/.bashrc.local.nix ]; then
+            echo "Linking $(pwd)/.bashrc.local.nix -> ~/.bashrc.local"
+            ln -s $(pwd)/.bashrc.local.nix ~/.bashrc.local
+        fi
+        ;;
+    esac
+fi
 
 # Create an env-specific file, just in case
 if [ ! -f ~/.bashrc.local ]; then
