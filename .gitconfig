@@ -4,6 +4,8 @@
 
 [color]
     diff = auto
+	status = auto
+	branch = auto
 
 [alias]
     mylog = log --pretty='%C(yellow)%h %Cgreen%cn %C(magenta)%cD %Creset%s' --author=__FULLNAME__

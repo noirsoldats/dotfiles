@@ -38,26 +38,9 @@ done
 # Handle .gitconfig specially.
 sed -e "s/__FULLNAME__/$FULLNAME/" -e "s/__EMAIL__/$EMAIL/" $(pwd)/.gitconfig > ~/.gitconfig
 
-uname=$(uname)
-if [ "$TERM" != "dumb" ]; then
-    case "$uname" in
-        Darwin)
-        if [ ! -e $(pwd)/.bashrc.local.mac ]; then
-            echo "Linking $(pwd)/.bashrc.local.mac -> ~/.bashrc.local"
-            ln -s $(pwd)/.bashrc.local.mac ~/.bashrc.local
-        fi
-        ;;
-        *)
-        if [ ! -e $(pwd)/.bashrc.local.nix ]; then
-            echo "Linking $(pwd)/.bashrc.local.nix -> ~/.bashrc.local"
-            ln -s $(pwd)/.bashrc.local.nix ~/.bashrc.local
-        fi
-        ;;
-    esac
-fi
-
 # Create an env-specific file, just in case
 if [ ! -f ~/.bashrc.local ]; then
   echo "# Put environment-specific stuff here." > ~/.bashrc.local
 fi
 
+echo "Put your custom bash stuff in ~/.bashrc.local,\nthe clean and install scripts will not touch that file."
