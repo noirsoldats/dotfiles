@@ -14,6 +14,9 @@ function update_git_branch {
     PS1="\[$green\]\u@:\w\[$magenta\]$(setGitPrompt)\[$green\]\\$\[$normal_colours\] "
 }
 
+# behave like emacs
+set -o emacs
+
 # history
 PROMPT_COMMAND='history -a; history -n'
 HISTCONTROL=ignoredups:ignorespace

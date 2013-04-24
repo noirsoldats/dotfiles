@@ -44,3 +44,5 @@ if [ ! -f ~/.bashrc.local ]; then
 fi
 
 echo "Put your custom bash stuff in ~/.bashrc.local,\nthe clean and install scripts will not touch that file."
+
+source ~/.bashrc
