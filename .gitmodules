@@ -7,3 +7,6 @@
 [submodule ".bash/informative-git-prompt"]
 	path = .bash/informative-git-prompt
 	url = git://github.com/noirsoldats/bash-git-prompt.git
+[submodule ".bash_autocomplete/symfony2-autocomplete"]
+	path = .bash_autocomplete/symfony2-autocomplete
+	url = git://github.com/KnpLabs/symfony2-autocomplete.git
