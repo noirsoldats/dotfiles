@@ -33,7 +33,7 @@ shopt -s cmdhist
 shopt -s checkwinsize
 
 # make less more friendly for non-text input files, see lesspipe(1)
-[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+#[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
 export GREP_OPTIONS="--color=auto"
 export GREP_COLOR="1;32"

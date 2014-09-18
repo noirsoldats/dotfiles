@@ -9,6 +9,7 @@
 *.ipr
 *.iws
 .idea/
+atlassian-ide-plugin.xml
 
 ### Linux ###
 !.gitignore
@@ -193,7 +194,7 @@ csx
 AppPackages/
 
 # Others
-sql/
+#sql/
 *.Cache
 ClientBin/
 [Ss]tyle[Cc]op.*

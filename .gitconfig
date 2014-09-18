@@ -21,6 +21,7 @@
     graph = log --graph --pretty=format':%C(yellow)%h%Cblue%d%Creset %s %C(white) %an, %ar%Creset'
     ls = log --pretty=format:'%C(yellow)%h %C(blue)%ad%C(red)%d %C(reset)%s%C(green) [%cn]' --decorate --date=short
     undo = reset --soft HEAD^
+    permission-reset = !git diff -p -R | grep -E \"^(diff|(old|new) mode)\" | git apply
 
 [apply]
     whitespace = nowarn

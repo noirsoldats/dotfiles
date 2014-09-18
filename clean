@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
 
 # Start with the simple dotfiles
+mkdir -p ~/DotFilesBackup
 dotfiles=( .bashrc .bash_aliases .hgrc .vim .vimrc .bash .gitignore_global .bash_autocomplete )
 for i in "${dotfiles[@]}"
 do
     if [ -e ~/$i ]; then
-        rm -rf ~/$i
+        mv ~/$i ~/DotFilesBackup/$i
     fi
 done
 
