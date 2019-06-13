@@ -5,11 +5,6 @@
 [ -z "$PS1" ] && return
 . /etc/profile > /dev/null
 
-# Source config variables file.
-if [ -f ~/.bash_config ]; then
-  . ~/.bash_config
-fi
-
 function update_git_branch {
     PS1="\[$green\]\u@:\w\[$magenta\]$(setGitPrompt)\[$green\]\\$\[$normal_colours\] "
 }
@@ -72,12 +67,12 @@ green=$'\e[1;32m'
 magenta=$'\e[1;35m'
 normal_colours=$'\e[m'
 
-if [ "$color_prompt" = yes ]; then
-    PROMPT_COMMAND="update_git_branch; $PROMPT_COMMAND"
-    PS1="\[$green\]\u@:\w\[$magenta\]$(setGitPrompt)\[$green\]\\$\[$normal_colours\] "
-else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
-fi
+#if [ "$color_prompt" = yes ]; then
+#    PROMPT_COMMAND="update_git_branch; $PROMPT_COMMAND"
+#    PS1="\[$green\]\u@:\w\[$magenta\]$(setGitPrompt)\[$green\]\\$\[$normal_colours\] "
+#else
+#    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+#fi
 
 # Try to keep environment pollution down, EPA loves us.
 unset color_prompt force_color_prompt
@@ -122,6 +117,11 @@ if [ "$TERM" != "dumb" ]; then
     esac
 fi
 
+# Source config variables file.
+if [ -f ~/.bash_config ]; then
+  . ~/.bash_config
+fi
+
 # Include alias definitions
 if [ -f ~/.bash_aliases ]; then
   . ~/.bash_aliases
@@ -131,3 +131,6 @@ fi
 if [ -f ~/.bashrc.local ]; then
   . ~/.bashrc.local
 fi
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"

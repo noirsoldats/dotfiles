@@ -9,6 +9,8 @@ else
     fi
 fi
 
+[ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
+
 # ls
 alias ls="ls -G"
 alias ll='ls -alF'
@@ -26,14 +28,14 @@ alias gc="git commit"
 # etc
 #alias src="cd ~/src"
 #alias m="mvim --remote-tab-silent"
-alias cdns="sudo dscacheutil -flushcache"
+alias cdns="sudo dscacheutil -flushcache;sudo killall -HUP mDNSResponder"
 alias diff="diff --suppress-common-lines"
 alias reload="source ~/.bashrc"
 alias t="tree"
 alias utime="date +%s"
 
 # `.. 3` will `cd ../../..`
-function ..() {
+..() {
     local arg=${1:-1}; while [ $arg -gt 0 ]; do
         local dir="$dir../"; arg=$(($arg - 1))
     done
@@ -42,7 +44,7 @@ function ..() {
 
 
 # generate a random password
-function gpw() {
+gpw() {
     local length=$1
     [ -z "$length" ] && length=20
     case `uname` in
@@ -57,8 +59,8 @@ function gpw() {
 }
 
 # create directories and cd to the first one
-function mkcd() { [ -n "$1" ] && mkdir -p "$@" && cd "$1"; }
+mkcd() { [ -n "$1" ] && mkdir -p "$@" && cd "$1"; }
 
 # simpler find
-function f() { find . -iname "*$1*"; }
+f() { find . -iname "*$1*"; }
 
